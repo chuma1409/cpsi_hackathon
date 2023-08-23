@@ -1,0 +1,51 @@
+/* Reset default margin and padding for the entire page */
+body, h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    background-color: #b2b788;
+    color: #fff;
+    padding: 15px;
+    font-size: 35px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    justify-content: space-between;
+    align-items: center; /* Vertically center align items within the header */
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    color: rgb(26, 44, 26);
+    text-align: center; 
+}
+
+.flag {
+    max-width: 100px;
+    height: auto;
+}
+
+.logo {
+    max-width: 100px;
+    height: auto;
+    /* move picture to left side */
+    margin-left: 20px;
+    
+}
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 100px); /* Adjust for the header's height and padding */
+}
+
+.dropdown {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+}
