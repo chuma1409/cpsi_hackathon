@@ -1,4 +1,3 @@
-
 function validateIdNumber(idNumber) {
     const idNumberPattern = /^\d{13}$/;
     return idNumberPattern.test(idNumber);
@@ -17,23 +16,26 @@ function hideErrorModal() {
 }
 
 function sendDataToBackend(data) {
-    fetch('backend_url', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(responseData => {
-        console.log('Backend response:', responseData);
-        // Perform actions based on the backend response
-    })
-    .catch(error => {
-        console.error('Error sending data to backend:', error);
-        // Handle the error
-    });
+    fetch('http://localhost:8000/get_user_by_id/' + data.idNumber)
+        .then(response => response.json())
+        .then(responseData => {
+            if (responseData.id_number && responseData.name && responseData.last_name) {
+                // Store the ID number in sessionStorage
+                sessionStorage.setItem('idNumber', data.idNumber);
+
+                // Redirect to verify.html
+                window.location.href = 'verify.html';
+            } else {
+                showErrorModal('Patient not found. Please check the ID number.');
+                // Perform actions based on the backend response
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching data from backend:', error);
+            // Handle the error
+        });
 }
+
 
 function validateAndSave() {
     const selectedValue = document.querySelector('.dropdown').value;

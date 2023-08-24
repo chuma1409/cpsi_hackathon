@@ -1,0 +1,54 @@
+.
+├── api
+│   ├── alembic
+│   │   ├── env.py
+│   │   ├── __pycache__
+│   │   │   └── env.cpython-310.pyc
+│   │   ├── README
+│   │   ├── script.py.mako
+│   │   └── versions
+│   ├── alembic.ini
+│   ├── api.txt
+│   ├── app
+│   │   ├── aouth2.py
+│   │   ├── config.py
+│   │   ├── database.py
+│   │   ├── __init__.py
+│   │   ├── main.py
+│   │   ├── mk.py
+│   │   ├── models.py
+│   │   ├── __pycache__
+│   │   │   ├── aouth2.cpython-310.pyc
+│   │   │   ├── aouth2.cpython-310.pyc.140193027713216
+│   │   │   ├── config.cpython-310.pyc
+│   │   │   ├── database.cpython-310.pyc
+│   │   │   ├── __init__.cpython-310.pyc
+│   │   │   ├── main.cpython-310.pyc
+│   │   │   ├── models.cpython-310.pyc
+│   │   │   ├── schemas.cpython-310.pyc
+│   │   │   └── utils.cpython-310.pyc
+│   │   ├── routers
+│   │   │   ├── auth.py
+│   │   │   ├── post.py
+│   │   │   ├── __pycache__
+│   │   │   │   ├── auth.cpython-310.pyc
+│   │   │   │   ├── post.cpython-310.pyc
+│   │   │   │   ├── user.cpython-310.pyc
+│   │   │   │   └── vote.cpython-310.pyc
+│   │   │   ├── user.py
+│   │   │   └── vote.py
+│   │   ├── schemas.py
+│   │   └── utils.py
+│   ├── LICENSE
+│   ├── __pycache__
+│   │   └── main.cpython-310.pyc
+│   ├── README.md
+│   └── requirements.txt
+├── client
+│   └── client.txt
+├── doctor
+│   └── doctor.txt
+├── LICENSE
+└── project_structure.txt
+
+11 directories, 40 files

@@ -4,8 +4,20 @@ import json
 import numpy as np
 import face_recognition
 from pydantic import BaseModel
-app = FastAPI()
+from fastapi.middleware.cors import CORSMiddleware
 
+app = FastAPI()
+origins = [
+    "*",  # Update this with your actual frontend URL
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 conn = sqlite3.connect("healthdb.db")
 cursor = conn.cursor()
 
@@ -52,7 +64,6 @@ def verify_face(request: PatientVerificationRequest):
     
     conn = sqlite3.connect("healthdb.db")
     cursor = conn.cursor()
-
     cursor.execute("SELECT encoding FROM patient WHERE id_number = ?", (id_number,))
     result = cursor.fetchone()
 
