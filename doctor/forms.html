@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Record Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- <img src="/images/bg.webp" alt="bgdrop" class="bgdrop"> -->
+
+    <div class="header">
+        <img src="/images/logo.png" alt="logo" class="logo">
+
+        <h2>South African Government</h2>
+
+        <img src="/images/flag.webp" alt="flag" class="flag" style="width: 400px;height:80px;">
+    </div>
+    <div class="container">
+        <h1>Medical Record</h1>
+        <form id="medical-record-form">
+            <label for="patient-name">Patient Name:</label>
+            <input type="text" id="patient-name" name="patient-name" value="John Doe" readonly>
+            
+            <label for="patient-id">Patient ID:</label>
+            <input type="text" id="patient-id" name="patient-id" value="12345" readonly>
+            
+            <label for="date-of-birth">Date of Birth:</label>
+            <input type="date" id="date-of-birth" name="date-of-birth" value="1990-01-01" readonly>
+            
+            <label for="gender">Gender:</label>
+            <input type="text" id="gender" name="gender" value="Male" readonly>
+            
+            <label for="new-record">New Record:</label>
+            <textarea id="new-record" name="new-record" required></textarea>
+            
+            <button type="submit">Add Record</button>
+        </form>
+        
+        <div class="record-navigation">
+            <button id="previous-button">Previous</button>
+            <button id="next-button">Next</button>
+        </div>
+        
+        <div id="patient-record">
+            <!-- Patient record details will be displayed here -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
