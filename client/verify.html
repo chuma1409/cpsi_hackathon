@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="header">
+        <img src="/images/logo.png" alt="logo" class="logo">
+
+        <h2>South African Government</h2>
+
+        <img src="/images/flag.webp" alt="flag" class="flag" style="width: 400px;height:80px;">
+    </div>
+        <br>
+        <div class="camera-container">
+            <video id="camera-stream" autoplay></video>
+            <button id="capture-button">Capture</button>
+            <button id="retake-button">Retake</button>
+            <button id="submit-button">Submit</button>
+        </div>
+        <canvas id="captured-image"></canvas>
+    
+        <script src="camera.js"></script>
+
+</body>
+</html>

@@ -4,17 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>cpsi_hackathon</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="header">
-        <h2>South African Government</h2>
-        <!-- #add logo on left side of header -->
-        <img src="logo.png" alt="logo" class="logo">
-        <!-- add south african flag on the right -->
-        <img src="flag.webp" alt="flag" class="flag" style="width: 135px;height: 80px;">
-    </div>
+        <img src="/images/logo.png" alt="logo" class="logo">
 
+        <h2>South African Government</h2>
+
+        <img src="/images/flag.webp" alt="flag" class="flag" style="width: 400px;height:80px;">
+    </div>
     <div class="center">
         <h2>What Are You Here For?</h2>
         <select class="dropdown">
@@ -23,14 +22,17 @@
             <option value="Collection & Consultation">Collection & Consultation</option>
         </select>
         <br>
-        <!-- add ID textbox -->
         <h3>Enter Your ID Number</h3>
         <input type="text" placeholder="ID Number" class="textbox">
         <br>
 
-        <!-- add submit button -->
-        <button class="next-button">Next</button>
+        <button class="next-button" id="nextButton">Next</button>
+    <div id="errorModal" class="modal">
+        <div class="modal-content error-content"></div>
+        <button class="close-button" onclick="hideErrorModal()">Close</button>
     </div>
+        
     
+    <script src="client.js"></script>
 </body>
 </html>
