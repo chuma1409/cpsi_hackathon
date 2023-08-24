@@ -5,7 +5,7 @@ import numpy as np
 import face_recognition
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-import datetime
+from datetime import datetime, timedelta
 app = FastAPI()
 origins = [
     "*",  # Update this with your actual frontend URL
@@ -143,27 +143,45 @@ def get_bookings():
     cursor = conn.cursor()
 
     # Get the current date without the time
-    current_date = datetime.date.today()
+    current_date = datetime.now().date()
 
     # Convert the current date to a string in the format 'YYYY-MM-DD'
     current_date_str = current_date.strftime('%Y-%m-%d')
 
     # Execute the SQL query to get the bookings for today
-    cursor.execute("SELECT patient_id, reason_for_visit, visit_date FROM visits WHERE strftime('%Y-%m-%d', visit_date) = ?", (current_date,))
+    cursor.execute("SELECT patient_id, reason_for_visit, visit_date FROM visits WHERE strftime('%Y-%m-%d', visit_date) = ? ORDER BY visit_date", (current_date_str,))
     result = cursor.fetchall()
 
     cursor.close()
     conn.close()
 
-    bookings = []
+    collection_bookings = []
+    consultation_bookings = []
+    collection_interval = 10  # Interval for collection bookings in minutes
+    other_interval = 30  # Initial interval for other bookings in minutes
 
     for row in result:
-        booking = {
-            "patient_id": row[0],
-            "reason_for_visit": row[1],
-            "visit_date": row[2]
-        }
-        bookings.append(booking)
+        patient_id = row[0]
+        conn = sqlite3.connect("healthdb.db")
+        cursor = conn.cursor()
+        res = cursor.execute("SELECT name, last_name FROM patient WHERE id = ?", (patient_id,))
+        res = cursor.fetchone()
 
-    return {"bookings": bookings}
+        booking = {
+            "name": res[0],
+            "surname": res[1],
+            "reason_for_visit": row[1],
+            "consultation_time": None
+        }
+
+        if row[1] == "Collection":
+            booking["consultation_time"] = (datetime.strptime(row[2], '%Y-%m-%d %H:%M:%S.%f') + timedelta(minutes=collection_interval)).strftime('%Y-%m-%d %H:%M:%S')
+            collection_interval += 10  # Increase interval for collection bookings
+            collection_bookings.append(booking)
+        else:
+            booking["consultation_time"] = (datetime.strptime(row[2], '%Y-%m-%d %H:%M:%S.%f') + timedelta(minutes=other_interval)).strftime('%Y-%m-%d %H:%M:%S')
+            other_interval += 30  # Increase interval for other bookings
+            consultation_bookings.append(booking)
+
+    return {"collection_bookings": collection_bookings, "consultation_bookings": consultation_bookings}
 

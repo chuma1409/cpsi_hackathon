@@ -6,10 +6,19 @@ body, h1, h2, h3, h4, h5, h6, p {
 
 body{
     padding: 10px 120px;
-    background-image: url('/images/bg.webp'); /* Set the background image */
+    /* background-image: url('/images/bg.webp'); Set the background image */
 
 }
 
+.booking-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.booking-time {
+    color: #666;
+    margin-top: 5px; /* Add margin at the top to create space */
+}
 .header {
     display: flex;
     background-color: #e8d8ac;
@@ -44,7 +53,10 @@ body{
     max-width: 100px;
     height: auto;
 }
-
+.h2{
+    color: rgb(26, 44, 26);
+    text-align: center; 
+}
 .logo {
     float: right;
     max-width: 100px;
