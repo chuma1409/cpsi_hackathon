@@ -23,7 +23,7 @@ cursor = conn.cursor()
 
 class PatientVerificationRequest(BaseModel):
     id_number: str
-g    face_encoding: list[float] 
+    face_encoding: list[float] 
 
 class DoctorVerificationRequest(BaseModel):
     name: str
@@ -70,7 +70,10 @@ def verify_face(request: PatientVerificationRequest):
     cursor = conn.cursor()
     cursor.execute("SELECT encoding,id FROM patient WHERE id_number = ?", (id_number,))
     result = cursor.fetchone()
-
+    patient_id = result[1]
+    datef = datetime.datetime.now()
+    cursor.execute("INSERT INTO visits (patient_id, reason_for_visit, visit_date) VALUES (?, ?, ?)",
+                   (patient_id,"consultation" , datef))
     cursor.close()
     conn.close()
 
@@ -79,25 +82,31 @@ def verify_face(request: PatientVerificationRequest):
     
     saved_encoding = json.loads(result[0])
     results = compare_face_encodings(face_encoding, [saved_encoding])
-    patient_id = result[1]
-    # if results[0]:
-    #     datef = datetime.datetime.now()
-    #     addbooking(patient_id, request.reason_for_visit, datef)
+
     return {"verification_results": results[0]}
 
 @app.get("/get_number_of_bookings")
 def get_number_of_bookings():
     conn = sqlite3.connect("healthdb.db")
     cursor = conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM visits WHERE visit_date < date('now')")
+
+    # Get the current date without the time
+    current_date = datetime.date.today()
+
+    # Convert the current date to a string in the format 'YYYY-MM-DD'
+    current_date_str = current_date.strftime('%Y-%m-%d')
+
+    # Execute the SQL query to count the bookings before today's date
+    cursor.execute("SELECT COUNT(*) FROM visits WHERE strftime('%Y-%m-%d', visit_date) = ?", (current_date,))
     result = cursor.fetchone()
+
     cursor.close()
     conn.close()
+
     return {"number_of_bookings": result[0]}
 
 def addbooking(patient_id, reason_for_visit, date_time):
-    conn = sqlite3.connect("healthdb.db")
-    cursor = conn.cursor()
+    
     cursor.execute("INSERT INTO visits (patient_id, reason_for_visit, visit_date) VALUES (?, ?, ?)",
                    (patient_id, reason_for_visit, date_time))
     conn.commit()
@@ -127,4 +136,34 @@ def get_doctor(login: DoctorVerificationRequest):
         "last_name": result[2]
     }
     return doctor_data
+
+@app.get("/get_bookings")
+def get_bookings():
+    conn = sqlite3.connect("healthdb.db")
+    cursor = conn.cursor()
+
+    # Get the current date without the time
+    current_date = datetime.date.today()
+
+    # Convert the current date to a string in the format 'YYYY-MM-DD'
+    current_date_str = current_date.strftime('%Y-%m-%d')
+
+    # Execute the SQL query to get the bookings for today
+    cursor.execute("SELECT patient_id, reason_for_visit, visit_date FROM visits WHERE strftime('%Y-%m-%d', visit_date) = ?", (current_date,))
+    result = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    bookings = []
+
+    for row in result:
+        booking = {
+            "patient_id": row[0],
+            "reason_for_visit": row[1],
+            "visit_date": row[2]
+        }
+        bookings.append(booking)
+
+    return {"bookings": bookings}
 
