@@ -64,6 +64,7 @@
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+
 function getBookings() {
     fetch('http://localhost:8000/get_bookings')
         .then(response => response.json())
@@ -75,8 +76,10 @@ function getBookings() {
                 const listItem = document.createElement('div');
                 listItem.classList.add('booking-item');
                 listItem.innerHTML = `
-                    <div class="booking-name">${capitalizeFirstLetter(booking.name)} ${capitalizeFirstLetter(booking.surname)}</div>
-                    <div class="booking-time">Time: ${booking.consultation_time}</div>
+                    <a href="bookingform.html?name=${booking.name}&surname=${booking.surname}&date=${booking.consultation_time}" class="booking-link">
+                        <div class="booking-name">${capitalizeFirstLetter(booking.name)} ${capitalizeFirstLetter(booking.surname)}</div>
+                        <div class="booking-time">Time: ${booking.consultation_time}</div>
+                    </a>
                 `;
                 collectionBookingList.appendChild(listItem);
             });
@@ -85,8 +88,10 @@ function getBookings() {
                 const listItem = document.createElement('div');
                 listItem.classList.add('booking-item');
                 listItem.innerHTML = `
-                    <div class="booking-name">${capitalizeFirstLetter(booking.name)} ${capitalizeFirstLetter(booking.surname)}</div>
-                    <div class="booking-time">Time: ${booking.consultation_time}</div>
+                    <a href="bookingform.html?name=${booking.name}&surname=${booking.surname}&date=${booking.consultation_time}" class="booking-link">
+                        <div class="booking-name">${capitalizeFirstLetter(booking.name)} ${capitalizeFirstLetter(booking.surname)}</div>
+                        <div class="booking-time">Time: ${booking.consultation_time}</div>
+                    </a>
                 `;
                 consultationBookingList.appendChild(listItem);
             });
@@ -95,12 +100,6 @@ function getBookings() {
 }
 
 getBookings();
-
-
-
-
-
-
 
     </script>
 </body>

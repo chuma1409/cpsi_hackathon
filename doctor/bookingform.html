@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Notes</title>
+        <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        } */
+
+        .booking-form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .booking-form h3 {
+            margin-top: 0;
+        }
+
+        .booking-form label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .booking-form input[type="text"],
+        .booking-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 5px;
+            resize: vertical;
+        }
+
+        .booking-form button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        .booking-form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="/images/logo.png" alt="logo" class="logo">
+        <h2>South African Government</h2>
+        <img src="/images/flag.webp" alt="flag" class="flag" style="width: 400px; height: 80px;">
+ 
+    </div>
+    <div class="booking-form">
+        <h3>Add Notes for Booking</h3>
+        <form id="bookingForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" readonly>
+            <label for="surname">Surname:</label>
+            <input type="text" id="surname" name="surname" readonly>
+            <label for="date">Date:</label>
+            <input type="text" id="date" name="date" readonly>
+            <label for="notes">Notes:</label>
+            <textarea id="notes" name="notes" rows="4" cols="50"></textarea>
+            <a href="notes_saved.html" class="save-notes-link">Save Notes</a>
+
+        </form>
+    </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        const surname = urlParams.get('surname');
+        const date = urlParams.get('date');
+
+        document.getElementById('name').value = name;
+        document.getElementById('surname').value = surname;
+        document.getElementById('date').value = date;
+        function redirectToNotesSaved() {
+        window.location.href = 'notes_saved.html';
+    }
+    </script>
+    
+</body>
+</html>

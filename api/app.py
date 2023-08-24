@@ -71,7 +71,7 @@ def verify_face(request: PatientVerificationRequest):
     cursor.execute("SELECT encoding,id FROM patient WHERE id_number = ?", (id_number,))
     result = cursor.fetchone()
     patient_id = result[1]
-    datef = datetime.datetime.now()
+    datef = datetime.now()
     cursor.execute("INSERT INTO visits (patient_id, reason_for_visit, visit_date) VALUES (?, ?, ?)",
                    (patient_id,"consultation" , datef))
     cursor.close()
