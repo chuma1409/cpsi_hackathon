@@ -22,7 +22,7 @@ function sendDataToBackend(data) {
             if (responseData.id_number && responseData.name && responseData.last_name) {
                 // Store the ID number in sessionStorage
                 sessionStorage.setItem('idNumber', data.idNumber);
-
+                
                 // Redirect to verify.html
                 window.location.href = 'verify.html';
             } else {
@@ -57,6 +57,7 @@ function validateAndSave() {
     // You can save the selected value and perform any other actions you need
     // For demonstration purposes, let's log them to the console
     console.log('Selected Value:', selectedValue);
+    sessionStorage.setItem('reason', selectedValue);
     console.log('ID Number:', idNumber);
 }
 

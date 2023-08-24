@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="header">
+        <img src="/images/logo.png" alt="logo" class="logo">
+        <h2>South African Government</h2>
+        <img src="/images/flag.webp" alt="flag" class="flag" style="width: 400px;height:80px;">
+    </div>
+    
+    <div class="middle-content">
+        <p id="welcomeText"></p>
+    </div>
+    
+    <script>
+        // Retrieve values from sessionStorage
+        const name = sessionStorage.getItem("name");
+        const number = sessionStorage.getItem("number");
+        
+        // Update the welcome text
+        const welcomeText = document.getElementById("welcomeText");
+        welcomeText.textContent = `Welcome ${name}, your queue number is ${number}.`;
+    </script>
+</body>
+</html>

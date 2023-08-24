@@ -78,13 +78,14 @@ function submitPicture() {
                 "face_encoding": faceEncodings[idNumber]
             };
             // set name to sessionStorage
-
+            const num = 0;
             if (idNumber == "0105085616124") {
                 sessionStorage.setItem('name', "Chuma");
+                sessionStorage.setItem("number",num+1)
             } else {
                 sessionStorage.setItem('name', "Ondwela");
+                sessionStorage.setItem("number",num+1)
             }
-            // Send the POST request
             fetch('http://localhost:8000/verify_face', {
                 method: 'POST',
                 headers: {
@@ -97,7 +98,7 @@ function submitPicture() {
                 console.log('Response:', data);
                 // You can handle the response here
                 if (data.verification_results === true) {
-                    window.location.href = 'forms.html'; // Change the URL to your forms.html
+                    window.location.href = 'l.html'; 
                 }
             })
             .catch(error => {

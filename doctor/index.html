@@ -5,18 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor</title>
     <link rel="stylesheet" href="/css/style.css">
+    <script>
+        function login() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            const data = {
+                name: username,
+                password: password
+            };
+
+            const url = "http://localhost:8000/doctor";
+
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+                
+            })
+            .then(response => response.json())
+            .then(result => {
+                if ("id_number" in result) {
+                    window.location.href = "forms.html";
+
+                } else {
+                    // Invalid credentials
+                    alert("Invalid credentials. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+    </script>
 </head>
 <body>
     <div class="header">
         <img src="/images/logo.png" alt="logo" class="logo">
-
         <h2>South African Government</h2>
-
         <img src="/images/flag.webp" alt="flag" class="flag" style="width: 400px;height:80px;">
     </div>
     <div class="login-container">
         <h1>Login</h1>
-        <form id="login-form">
+        <form id="login-form" onsubmit="event.preventDefault(); login();">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             <label for="password">Password:</label>
@@ -24,6 +57,5 @@
             <button type="submit">Login</button>
         </form>
     </div>
-
 </body>
 </html>
